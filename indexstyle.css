@@ -426,8 +426,8 @@ img { max-width: 100%; height: auto; display: block; }
     flex-shrink: 0;
 }
 .drama-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 10px 10px rgba(0,0,0,0.5); }
-.drama-card-img img { width: 100%; aspect-ratio: 3/3; object-fit: cover; }
-.drama-card-info { padding: 10px; }
+.drama-card-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.drama-card-info { padding: 15px; }
 .drama-card-title { font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .drama-card-meta { font-size: 0.8rem; color: var(--text-muted-color); }
 

@@ -12,44 +12,55 @@ document.addEventListener('DOMContentLoaded', function () {
             e.stopPropagation();
             navLinks.classList.toggle('active');
             overlay.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            }
         });
+
         overlay.addEventListener('click', () => {
             navLinks.classList.remove('active');
             overlay.classList.remove('active');
+            if (menuToggle.querySelector('i')) {
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+            }
         });
     }
 
     // --- 2. RANDOMIZATION UTILITY ---
     function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
+        let shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
-        return array;
+        return shuffled;
     }
 
-    // --- 3. SEARCH & DATA POPULATION ---
+    // --- 3. DATA POPULATION & CAROUSELS ---
     let fuse;
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
     async function initializeDramaSite() {
         try {
             const response = await fetch('dramas.json');
             const data = await response.json();
 
-            fuse = new Fuse(data, { keys: ['title'], threshold: 0.4 });
+            fuse = new Fuse(data, {
+                keys: ['title'],
+                threshold: 0.4
+            });
 
-            // Trending stays fixed (or sorted by trend)
+            // TRENDING: Keep as is (Standard Order)
             populateGrid('trending-grid', data.filter(d => d.Trend === "T").slice(0, 15)); 
 
-            // Other sections get randomized
-            const kdramas = shuffleArray(data.filter(d => d.type === "K-Drama")).slice(0, 15);
-            const cdramas = shuffleArray(data.filter(d => d.type === "C-Drama")).slice(0, 15);
-            const jdramas = shuffleArray(data.filter(d => d.type === "J-Drama")).slice(0, 15);
-            const pdramas = shuffleArray(data.filter(d => d.type === "P-Drama")).slice(0, 15);
-
-            populateGrid('kdrama-grid', kdramas);
-            populateGrid('cdrama-grid', cdramas);
-            populateGrid('jdrama-grid', jdramas);
-            populateGrid('pdrama-grid', pdramas);
+            // CATEGORIES: Random Selection (Change 2)
+            populateGrid('kdrama-grid', shuffleArray(data.filter(d => d.type === "K-Drama")).slice(0, 15));
+            populateGrid('cdrama-grid', shuffleArray(data.filter(d => d.type === "C-Drama")).slice(0, 15));
+            populateGrid('jdrama-grid', shuffleArray(data.filter(d => d.type === "J-Drama")).slice(0, 15));
+            populateGrid('pdrama-grid', shuffleArray(data.filter(d => d.type === "P-Drama")).slice(0, 15));
 
         } catch (err) {
             console.error("Data Load Error:", err);
@@ -70,14 +81,51 @@ document.addEventListener('DOMContentLoaded', function () {
         `).join('');
     }
 
-    // --- 4. FLOATING BUTTON LOGIC ---
-    const floatBtn = document.getElementById('floatingRequestBtn');
-    const modal = document.getElementById('requestModal');
-    const closeBtn = document.querySelector('.close-modal');
+    // --- 4. SEARCH LOGIC ---
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim();
+            if (query.length < 1 || !fuse) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            const results = fuse.search(query, { limit: 10 });
+            searchResults.innerHTML = results.map(({ item }) => `
+                <a href="${item.link}" class="search-result-item">
+                    <img src="${item.img}" width="40" height="55">
+                    <div>
+                        <div style="color:#fff; font-weight:600;">${item.title}</div>
+                        <small style="color:#aaa;">${item.type}</small>
+                    </div>
+                </a>
+            `).join('');
+            searchResults.style.display = 'block';
+        });
+    }
 
-    floatBtn.addEventListener('click', () => modal.classList.add('active'));
-    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-    window.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+    // --- 5. HERO SLIDER ---
+    const sliderWrapper = document.querySelector('.slider-wrapper');
+    if (sliderWrapper) {
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            slideIndex = (slideIndex + 1) % slides.length;
+            sliderWrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }, 5000);
+    }
+
+    // --- 6. MODAL LOGIC (Change 3) ---
+    const requestBtn = document.getElementById('floatingRequestBtn');
+    const modal = document.getElementById('requestModal');
+    const closeModal = document.querySelector('.close-modal');
+
+    if (requestBtn && modal) {
+        requestBtn.addEventListener('click', () => modal.classList.add('active'));
+        closeModal.addEventListener('click', () => modal.classList.remove('active'));
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+    }
 
     initializeDramaSite();
 });

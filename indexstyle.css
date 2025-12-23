@@ -1,4 +1,4 @@
-/* --- Keep your existing global variables & resets --- */
+/* --- Core Styles --- */
 :root {
   --primary-color: #8A2BE2;
   --secondary-color: #E50914;
@@ -7,115 +7,125 @@
   --text-color: #F5F5F5;
   --text-muted-color: #a0a0a0;
   --border-color: #2c2c34;
+  --tg-blue: #0088cc;
 }
 
-/* --- CAROUSEL MODE (1st Change) --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background: var(--background-color); color: var(--text-color); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+.container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+
+/* --- Header --- */
+.main-header { background: #0b0c10; padding: 15px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
+.main-header .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.logo { font-size: 1.8rem; font-weight: 700; }
+.logo span { color: var(--primary-color); }
+.search-bar { flex-grow: 1; position: relative; max-width: 500px; }
+.search-bar input { width: 100%; padding: 10px 40px; border-radius: 25px; border: 1px solid var(--border-color); background: var(--surface-color); color: #fff; }
+.search-bar i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted-color); }
+.nav-links ul { display: flex; gap: 20px; }
+.nav-links a:hover { color: var(--primary-color); }
+
+/* --- Change 1: Carousel Mode --- */
 .drama-grid.carousel-mode {
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
     gap: 20px;
-    padding: 10px 5px 25px 5px;
+    padding: 10px 5px 30px;
     scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-color) transparent;
+    scrollbar-width: none; /* Firefox */
 }
+.drama-grid.carousel-mode::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
-/* Hide scrollbar for Chrome/Safari but keep functionality */
-.drama-grid.carousel-mode::-webkit-scrollbar {
-    height: 4px;
-}
-.drama-grid.carousel-mode::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
+.drama-card {
+    min-width: 200px;
+    max-width: 200px;
+    background: var(--surface-color);
     border-radius: 10px;
-}
-
-.drama-grid.carousel-mode .drama-card {
-    min-width: 180px; /* Force cards to stay in a row */
-    max-width: 180px;
+    overflow: hidden;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     flex-shrink: 0;
 }
+.drama-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+.drama-card-img img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+.drama-card-info { padding: 12px; }
+.drama-card-title { font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.drama-card-meta { font-size: 0.8rem; color: var(--text-muted-color); }
 
-/* --- FLOATING BUTTON & MODAL (3rd Change) --- */
+/* --- Hero Slider --- */
+.hero-slider { height: 600px; position: relative; overflow: hidden; }
+.slider-wrapper { display: flex; height: 100%; transition: 0.6s ease-in-out; }
+.slide { min-width: 100%; position: relative; display: flex; align-items: center; }
+.slide-bg-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #0b0c10 10%, transparent 90%); z-index: 2; }
+.slide-content { position: relative; z-index: 3; padding: 0 10%; max-width: 700px; }
+.slide-title { font-size: 3rem; margin-bottom: 10px; }
+.btn-primary { background: var(--primary-color); padding: 12px 25px; border-radius: 5px; font-weight: 600; display: inline-block; }
+
+/* --- Change 3: Floating Button & Modal --- */
 .floating-btn {
     position: fixed;
     bottom: 30px;
-    right: 20px;
+    right: 30px;
     background: var(--primary-color);
     color: white;
-    padding: 12px 20px;
+    padding: 12px 24px;
     border-radius: 50px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     cursor: pointer;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-    z-index: 9999;
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
+    z-index: 999;
     transition: 0.3s;
-    border: 2px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
 }
+.floating-btn:hover { transform: scale(1.05); background: #9d47ff; }
 
-.floating-btn:hover {
-    transform: scale(1.05);
-    background: #9b47f5;
-}
-
-.floating-btn i { font-size: 1.4rem; }
-.floating-btn span { font-weight: 600; font-size: 0.9rem; }
-
-/* Modal Styles */
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10000;
+    z-index: 10001;
     opacity: 0;
     visibility: hidden;
-    transition: 0.3s;
-    backdrop-filter: blur(5px);
+    transition: 0.4s;
 }
-
-.modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
+.modal-overlay.active { opacity: 1; visibility: visible; }
 .modal-card {
     background: var(--surface-color);
-    padding: 40px 30px;
+    padding: 40px;
     border-radius: 20px;
-    max-width: 400px;
-    width: 90%;
     text-align: center;
-    position: relative;
+    max-width: 450px;
+    width: 90%;
     border: 1px solid var(--border-color);
+    transform: translateY(20px);
+    transition: 0.4s;
 }
+.modal-overlay.active .modal-card { transform: translateY(0); }
+.modal-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
+.close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+.btn-telegram { background: var(--tg-blue); color: #fff; padding: 12px 30px; border-radius: 10px; font-weight: 600; margin-top: 20px; display: inline-flex; align-items: center; gap: 10px; }
 
-.close-modal {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
-}
+/* --- Platforms --- */
+.platforms-section { background: #110c1f; padding: 20px 0; overflow: hidden; }
+.marquee-content { display: flex; animation: scroll 20s linear infinite; }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.platform-link { padding: 10px 20px; background: rgba(255,255,255,0.05); border-radius: 50px; margin: 0 10px; }
+.platform-link img { height: 25px; filter: brightness(0) invert(1); }
 
-.modal-card h3 { margin-bottom: 15px; font-size: 1.5rem; color: var(--primary-color); }
-.modal-card p { margin-bottom: 25px; color: var(--text-muted-color); }
-
-/* --- Mobile Fixes --- */
-@media (max-width: 992px) {
-    .floating-btn span { display: none; } /* Hide text on mobile, keep icon */
+/* --- Mobile Specifics --- */
+@media (max-width: 768px) {
+    .slide-title { font-size: 1.8rem; }
+    .hero-slider { height: 450px; }
+    .drama-card { min-width: 150px; max-width: 150px; }
+    .floating-btn span { display: none; }
     .floating-btn { padding: 15px; border-radius: 50%; }
-    .drama-grid.carousel-mode .drama-card {
-        min-width: 140px;
-        max-width: 140px;
-    }
+    .nav-links { display: none; } /* Use mobile menu toggle */
 }
-
-/* Keep the rest of your provided CSS below this... */

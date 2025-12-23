@@ -417,8 +417,8 @@ img { max-width: 100%; height: auto; display: block; }
 .drama-grid.carousel-mode::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
 .drama-card {
-    min-width: 100px;
-    max-width: 100px;
+    min-width: 150px;
+    max-width: 150px;
     background: var(--surface-color);
     border-radius: 10px;
     overflow: hidden;

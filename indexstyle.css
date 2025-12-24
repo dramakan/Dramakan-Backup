@@ -421,9 +421,14 @@ img { max-width: 100%; height: auto; display: block; }
 /* --- 2. Add Gap: Platform Section and Content --- */
 .platforms-section {
     margin-bottom: 50px; /* Creates the requested gap between platforms and trending */
-    background: #110c1f;
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
+    background: rgba(26, 26, 29, 0.4); /* Subtle transparent background */
+    backdrop-filter: blur(12px); /* The blurry effect */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);     border-bottom: 1px solid var(--border-color);
+   border-radius: 20px;
+    padding: 25px 15px; /* Comfortable padding inside the glass box */
+    margin-bottom: 60px; /* Space between different drama sections */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     overflow: hidden;
     position: relative;
     z-index: 2;
@@ -545,6 +550,7 @@ img { max-width: 100%; height: auto; display: block; }
     padding: 20px;
     margin-bottom: 40px; /* Separates the boxes from each other */
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    
 }
 
 .section-header {

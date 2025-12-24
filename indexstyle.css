@@ -406,6 +406,26 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* --- Change 1: Carousel Mode --- */
+.drama-grid.carousel-mode {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 10px;
+    padding: 10px 5px 30px;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+}
+.drama-grid.carousel-mode::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+.drama-card {
+    min-width: 150px;
+    max-width: 150px;
+    background: var(--surface-color);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
 /* --- New Glass Section Styling --- */
 .section-glass-box {
     background: rgba(26, 26, 29, 0.4); /* Subtle transparent background */

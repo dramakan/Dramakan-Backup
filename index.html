@@ -107,75 +107,125 @@
           </div>
     </div>
 </section>
-
-<main>
+  <main>
+  <main>
   <section class="latest-episodes">
-      <div class="container">
+    <div class="container">
+      <div class="section-glass-box">
+        <div class="section-header">
           <h2 class="section-title">Trending Now</h2>
-          <div id="trending-grid" class="drama-grid carousel-mode"></div>
-      </div>
-  </section>
-
-  <section class="latest-episodes">
-      <div class="container">
-          <h2 class="section-title">Korean Dramas</h2>
-          <div id="kdrama-grid" class="drama-grid carousel-mode"></div>
-      </div>
-  </section>
-
-  <section class="latest-episodes">
-      <div class="container">
-          <h2 class="section-title">Chinese Dramas</h2>
-          <div id="cdrama-grid" class="drama-grid carousel-mode"></div>
-      </div>
-  </section>
-
-  <section class="latest-episodes">
-      <div class="container">
-          <h2 class="section-title">Japanese Dramas</h2>
-          <div id="jdrama-grid" class="drama-grid carousel-mode"></div>
-      </div>
-  </section>
-
-  <section class="latest-episodes">
-      <div class="container">
-          <h2 class="section-title">Filipino Dramas</h2>
-          <div id="pdrama-grid" class="drama-grid carousel-mode"></div>
-      </div>
-  </section>
-</main>
-
-<div id="floatingRequestBtn" class="floating-btn">
-  <i class="fas fa-paper-plane"></i>
-  <span>Didn't find your favourite drama?</span>
-</div>
-
-<div id="requestModal" class="modal-overlay">
-  <div class="modal-card">
-    <button class="close-modal">&times;</button>
-    <div class="modal-icon"><i class="fas fa-film"></i></div>
-    <h3>Request a Drama</h3>
-    <p>DM us your favourite drama name on Telegram. It will be available within <strong>48 hours</strong>!</p>
-    <a href="https://t.me/iamashish6700" target="_blank" class="btn btn-telegram">
-      <i class="fab fa-telegram-plane"></i> Send Message
-    </a>
-  </div>
-</div>
-
-<footer class="main-footer">
-  <div class="container">
-    <div class="footer-content">
-      <a href="#" class="logo">Drama<span>Kan</span></a>
-      <div class="footer-socials">
-        <a href="https://t.me/+lqMKFXUFkVBlODU1"><i class="fab fa-telegram"></i></a>
-        <a href="https://www.instagram.com/dramakanofficial"><i class="fab fa-instagram"></i></a>
-        <a href="privacy.html"><i class="fas fa-file-alt"></i></a>
-        <a href="disclaimer.html"><i class="fas fa-shield-alt"></i></a>
+          <a href="trending.html" class="view-all-link">View All <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div id="trending-grid" class="drama-grid carousel-mode"></div>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2025 Dramakan. All rights reserved.</div>
-  </div>
-</footer>
+  </section>
 
+  <section class="latest-episodes">
+    <div class="container">
+      <div class="section-glass-box">
+        <div class="section-header">
+          <h2 class="section-title">Korean Dramas</h2>
+          <a href="korean.html" class="view-all-link">View All <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div id="kdrama-grid" class="drama-grid carousel-mode"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="latest-episodes">
+    <div class="container">
+      <div class="section-glass-box">
+        <div class="section-header">
+          <h2 class="section-title">Chinese Dramas</h2>
+          <a href="chinese.html" class="view-all-link">View All <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div id="cdrama-grid" class="drama-grid carousel-mode"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="latest-episodes">
+    <div class="container">
+      <div class="section-glass-box">
+        <div class="section-header">
+          <h2 class="section-title">Japanese Dramas</h2>
+          <a href="japanese.html" class="view-all-link">View All <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div id="jdrama-grid" class="drama-grid carousel-mode"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="latest-episodes">
+    <div class="container">
+      <div class="section-glass-box">
+        <div class="section-header">
+          <h2 class="section-title">Filipino Dramas</h2>
+          <a href="filipino.html" class="view-all-link">View All <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div id="pdrama-grid" class="drama-grid carousel-mode"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="latest-episodes">
+    <div class="container">
+      <div class="section-glass-box">
+        <div class="section-header">
+          <h2 class="section-title">Thailand Dramas</h2>
+          <a href="thailand.html" class="view-all-link">View All <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div id="tdrama-grid" class="drama-grid carousel-mode"></div>
+      </div>
+    </div>
+  </section>
+
+  <button id="dramaRequestBtn" class="drama-fab">
+    <span class="fab-icon">?</span>
+    <span class="fab-text">Didn't find your drama?</span>
+</button>
+
+<div id="dramaModal" class="drama-modal-overlay">
+    <div class="drama-modal-card">
+        <button class="drama-modal-close" id="closeDramaModal">&times;</button>
+        
+        <div class="drama-section-highlight">
+            <h4>Can't find what you're looking for?</h4>
+            <p>Don't worry, we've got you covered!</p>
+        </div>
+        
+        <div class="drama-section-main">
+            <form id="dramaRequestForm">
+                <input type="text" id="dramaName" placeholder="Enter Drama Name..." required class="drama-input">
+                <p class="drama-timer-text">Your request will be available <strong>the same day</strong> or within <strong>48 hours</strong>.</p>
+                <button type="submit" class="drama-submit-btn" id="submitBtn">Send Request</button>
+            </form>
+            <div id="statusMessage" style="margin-top: 10px; font-size: 0.8rem; display: none;"></div>
+        </div>
+        
+        <div class="drama-modal-footer">
+            <p style="font-size: 0.8rem; margin-bottom: 10px; opacity: 0.7;">If it says any error text directly to us:</p>
+            <a href="https://t.me/iamashish6700" target="_blank" class="drama-tg-link">On Telegram</a>
+        </div>
+    </div>
+</div> 
+  
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <a href="#" class="logo">Drama<span>Kan</span></a>
+        <div class="footer-socials">
+          <a href="https://t.me/+lqMKFXUFkVBlODU1"><i class="fab fa-telegram"></i></a>
+           <a href="https://www.instagram.com/dramakanofficial?igsh=b3l0cHdzd2Izbncw"><i class="fab fa-instagram"></i></a>
+            <a href="privacy.html"><i class="fas fa-file-alt"></i></a>
+          <a href="disclaimer.html"><i class="fas fa-shield-alt"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2025 Dramakan. All rights reserved.</div>
+    </div>
+  </footer>
 </body>
 </html>

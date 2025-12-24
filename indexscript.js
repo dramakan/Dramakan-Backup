@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- 1. MOBILE MENU LOGIC ---
     const menuToggle = document.getElementById('mobileMenuToggle');
     const navLinks = document.getElementById('navLinks');
+    
+    // Create overlay
     const overlay = document.createElement('div');
     overlay.className = 'menu-overlay';
     document.body.appendChild(overlay);
@@ -19,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+        // Close when clicking overlay
         overlay.addEventListener('click', () => {
             navLinks.classList.remove('active');
             overlay.classList.remove('active');
@@ -28,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- 2. RANDOMIZATION UTILITY ---
+     // --- 2. RANDOMIZATION UTILITY ---
     function shuffleArray(array) {
         let shuffled = [...array];
         for (let i = shuffled.length - 1; i > 0; i--) {
@@ -61,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
             populateGrid('cdrama-grid', shuffleArray(data.filter(d => d.type === "C-Drama")).slice(0, 15));
             populateGrid('jdrama-grid', shuffleArray(data.filter(d => d.type === "J-Drama")).slice(0, 15));
             populateGrid('pdrama-grid', shuffleArray(data.filter(d => d.type === "P-Drama")).slice(0, 15));
+            populateGrid('tdrama-grid', shuffleArray(data.filter(d => d.type === "T-Drama")).slice(0, 15));
 
         } catch (err) {
             console.error("Data Load Error:", err);
@@ -81,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
         `).join('');
     }
 
-    // --- 4. SEARCH LOGIC ---
     if (searchInput) {
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.trim();
@@ -103,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- 5. HERO SLIDER ---
+    // --- 3. HERO SLIDER ---
     const sliderWrapper = document.querySelector('.slider-wrapper');
     if (sliderWrapper) {
         let slideIndex = 0;
@@ -114,18 +117,55 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 5000);
     }
 
-    // --- 6. MODAL LOGIC (Change 3) ---
-    const requestBtn = document.getElementById('floatingRequestBtn');
-    const modal = document.getElementById('requestModal');
-    const closeModal = document.querySelector('.close-modal');
-
-    if (requestBtn && modal) {
-        requestBtn.addEventListener('click', () => modal.classList.add('active'));
-        closeModal.addEventListener('click', () => modal.classList.remove('active'));
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('active');
-        });
-    }
-
     initializeDramaSite();
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById("dramaModal");
+    const openBtn = document.getElementById("dramaRequestBtn");
+    const closeBtn = document.getElementById("closeDramaModal");
+    const form = document.getElementById("dramaRequestForm");
+
+    // 1. YOUR DETAILS (Fill these in!)
+    const BOT_TOKEN = "8473278366:AAFgUjLJGAjRoh4Ig1DCat0qCs2D7yZHcbA";
+    const CHAT_ID = "5780542178";
+
+    // Open/Close Modal
+    openBtn.onclick = () => modal.style.display = "flex";
+    closeBtn.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if(e.target === modal) modal.style.display = "none"; }
+
+    // Form Submission
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        const dramaName = document.getElementById("dramaName").value;
+        const status = document.getElementById("statusMessage");
+        const submitBtn = document.getElementById("submitBtn");
+
+        submitBtn.innerText = "Sending...";
+        submitBtn.disabled = true;
+
+        const text = `🎬 *New Drama Request*\n\nName: ${dramaName}`;
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}&parse_mode=Markdown`;
+
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                status.style.display = "block";
+                status.style.color = "#4CAF50";
+                status.innerText = "Request sent! Check back in 48 hours.";
+                form.reset();
+            } else {
+                throw new Error();
+            }
+        } catch (err) {
+            status.style.display = "block";
+            status.style.color = "#ff4d4d";
+            status.innerText = "Error sending request. Try joining Telegram.";
+        } finally {
+            submitBtn.innerText = "Send Request";
+            submitBtn.disabled = false;
+        }
+    };
+});
+     

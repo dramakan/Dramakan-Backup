@@ -420,14 +420,13 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* --- 2. Add Gap: Platform Section and Content --- */
 .platforms-section {
-    margin-bottom: 50px; /* Creates the requested gap between platforms and trending */
+    
     background: rgba(26, 26, 29, 0.4); /* Subtle transparent background */
     backdrop-filter: blur(12px); /* The blurry effect */
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);     border-bottom: 1px solid var(--border-color);
-   border-radius: 20px;
+ 
     padding: 25px 15px; /* Comfortable padding inside the glass box */
-    margin-bottom: 60px; /* Space between different drama sections */
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     overflow: hidden;
     position: relative;
@@ -490,11 +489,14 @@ img { max-width: 100%; height: auto; display: block; }
     background: rgba(26, 26, 29, 0.4);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 25px 15px; /* Comfortable padding inside the glass box */
-    margin-bottom: 60px; /* Space between different drama sections */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        margin-bottom: 0 !important; /* Removes the gap between boxes */
+        padding: 25px 0 15px 0;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Very faint divider line */
+        background: rgba(26, 26, 29, 0.5); /* Matching backgrounds creates the flow */
+        box-shadow: none;
 }
 
 /* --- 4. Custom Sliding Bar (Scrollbar) --- */

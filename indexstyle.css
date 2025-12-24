@@ -406,17 +406,78 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* --- Change 1: Carousel Mode --- */
+/* 1. Widen the container for PC view */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 95%; /* Stretches almost to the edges */
+        padding: 0 40px;
+    }
+}
+
+/* 2. Adjust the Glass Box for edge-to-edge content */
+.section-glass-box {
+    padding: 20px 10px; /* Reduced side padding */
+    background: rgba(26, 26, 29, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    margin-bottom: 40px;
+}
+
+/* 3. Enable and Style the 'Sliding Bar' (Custom Scrollbar) */
 .drama-grid.carousel-mode {
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
-    gap: 10px;
-    padding: 10px 5px 30px;
+    gap: 15px;
+    padding: 10px 10px 20px; /* Space at bottom for the bar */
     scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
+    /* Firefox scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) rgba(255, 255, 255, 0.05);
 }
-.drama-grid.carousel-mode::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
+/* Chrome, Edge, and Safari 'Sliding Bar' Styling */
+.drama-grid.carousel-mode::-webkit-scrollbar {
+    height: 4px; /* Thin, elegant bar */
+    display: block; /* Ensures it is visible */
+}
+
+.drama-grid.carousel-mode::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin: 0 20px; /* Keeps the bar from touching the absolute edges */
+}
+
+.drama-grid.carousel-mode::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5); /* Glowing effect */
+}
+
+.drama-grid.carousel-mode::-webkit-scrollbar-thumb:hover {
+    background: #a353ed; /* Lighter purple on hover */
+}
+
+/* 4. Ensure Posters look sharp in the wider view */
+.drama-card {
+    min-width: 170px; /* Slightly larger on PC for better fill */
+    max-width: 170px;
+}
+
+@media (max-width: 768px) {
+    .drama-card {
+        min-width: 125px; /* Keeps mobile view compact as requested before */
+        max-width: 125px;
+    }
+    .container {
+        padding: 0 15px;
+    }
+    .drama-grid.carousel-mode::-webkit-scrollbar {
+        height: 2px; /* Even thinner on mobile */
+    }
+}
 .drama-card {
     min-width: 150px;
     max-width: 150px;

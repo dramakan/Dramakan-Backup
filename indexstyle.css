@@ -429,35 +429,44 @@ img { max-width: 100%; height: auto; display: block; }
     z-index: 2;
 }
 @media (max-width: 768px) {
-    /* 1. Remove side margins from container to let box touch edges */
+    /* 1. Ensure the main container has zero side padding */
     .container {
-        padding: 0 !important; 
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
-    /* 2. Refine the Glass Box for Mobile */
+    /* 2. Remove all side radius and borders for a total blend */
     .section-glass-box {
-        margin-bottom: 30px;
-        padding: 15px 0;      /* Remove side padding so posters touch edges */
-        border-left: none;    /* Remove side lines */
-        border-right: none;   /* Remove side lines */
-        border-radius: 0;     /* Remove corner radius to blend with phone edges */
-        background: rgba(26, 26, 29, 0.6); /* Slightly darker for better contrast */
+        margin-bottom: 25px; /* Spacing between categories */
+        padding: 20px 0 15px 0; /* Vertical padding only */
+        border-radius: 0 !important; /* Square edges to match screen */
+        border-left: none !important;
+        border-right: none !important;
+        background: rgba(26, 26, 29, 0.5); /* Semi-transparent glass */
+        box-shadow: none; /* Shadow looks off when edge-to-edge */
     }
 
-    /* 3. Adjust Header and Grid within the box */
+    /* 3. Keep text elements indented so they don't touch the screen bezel */
     .section-header {
-        padding: 0 15px;      /* Keep the Title and View All button indented */
-        margin-bottom: 10px;
+        padding: 0 15px;
+        margin-bottom: 15px;
     }
 
+    /* 4. Carousel padding for the 'sliding in' effect */
     .drama-grid.carousel-mode {
-        padding: 10px 15px 20px 15px; /* Side padding allows posters to 'come from the side' */
+        padding: 0 15px 25px 15px; /* Bottom padding for the sliding bar */
         gap: 12px;
     }
 
-    /* 4. Thinner, centered scrollbar for mobile */
+    /* 5. Refine the sliding bar (scrollbar) for mobile */
     .drama-grid.carousel-mode::-webkit-scrollbar-track {
-        margin: 0 20%; /* Makes the scrollbar shorter and centered */
+        margin: 0 25%; /* Keeps the bar shorter than the screen width */
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .drama-grid.carousel-mode::-webkit-scrollbar {
+        height: 3px; /* Very thin bar for mobile */
     }
 }
 

@@ -406,76 +406,73 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* --- Change 1: Carousel Mode --- */
-/* 1. Widen the container for PC view */
-@media (min-width: 1200px) {
+/* --- 1. Global Layout: Edge-to-Edge Desktop View --- */
+@media (min-width: 1024px) {
     .container {
-        max-width: 95%; /* Stretches almost to the edges */
-        padding: 0 40px;
+        max-width: 100%; /* Removes fixed width constraints */
+        padding: 0 2%;   /* Small safety gap so it doesn't touch the screen bezel */
+    }
+    
+    .main-header .container {
+        padding: 0 4%;   /* Keeps header items slightly more centered for better UX */
     }
 }
 
-/* 2. Adjust the Glass Box for edge-to-edge content */
+/* --- 2. Add Gap: Platform Section and Content --- */
+.platforms-section {
+    margin-bottom: 50px; /* Creates the requested gap between platforms and trending */
+    background: #110c1f;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- 3. Section Glass Box: Edge-to-Edge & Scrolling --- */
 .section-glass-box {
-    padding: 20px 10px; /* Reduced side padding */
     background: rgba(26, 26, 29, 0.4);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
-    margin-bottom: 40px;
+    padding: 25px 15px; /* Comfortable padding inside the glass box */
+    margin-bottom: 60px; /* Space between different drama sections */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-/* 3. Enable and Style the 'Sliding Bar' (Custom Scrollbar) */
+/* --- 4. Custom Sliding Bar (Scrollbar) --- */
 .drama-grid.carousel-mode {
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
-    gap: 15px;
-    padding: 10px 10px 20px; /* Space at bottom for the bar */
+    gap: 20px;
+    padding-bottom: 25px; /* Space for the custom sliding bar */
     scroll-behavior: smooth;
-    /* Firefox scrollbar styling */
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-color) rgba(255, 255, 255, 0.05);
 }
 
-/* Chrome, Edge, and Safari 'Sliding Bar' Styling */
+/* Custom Scrollbar for Chrome/Safari/Edge */
 .drama-grid.carousel-mode::-webkit-scrollbar {
-    height: 4px; /* Thin, elegant bar */
-    display: block; /* Ensures it is visible */
+    height: 6px; /* Visible bar height */
 }
 
 .drama-grid.carousel-mode::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
-    margin: 0 20px; /* Keeps the bar from touching the absolute edges */
+    margin: 0 40px; /* Insets the bar slightly from the box edges */
 }
 
 .drama-grid.carousel-mode::-webkit-scrollbar-thumb {
     background: var(--primary-color);
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5); /* Glowing effect */
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.6); /* Glowing purple effect */
 }
 
-.drama-grid.carousel-mode::-webkit-scrollbar-thumb:hover {
-    background: #a353ed; /* Lighter purple on hover */
-}
-
-/* 4. Ensure Posters look sharp in the wider view */
-.drama-card {
-    min-width: 170px; /* Slightly larger on PC for better fill */
-    max-width: 170px;
-}
-
-@media (max-width: 768px) {
+/* --- 5. Drama Card Scaling for PC --- */
+@media (min-width: 1024px) {
     .drama-card {
-        min-width: 125px; /* Keeps mobile view compact as requested before */
-        max-width: 125px;
-    }
-    .container {
-        padding: 0 15px;
-    }
-    .drama-grid.carousel-mode::-webkit-scrollbar {
-        height: 2px; /* Even thinner on mobile */
+        min-width: 185px; /* Larger posters to utilize the extra screen width */
+        max-width: 185px;
     }
 }
 .drama-card {

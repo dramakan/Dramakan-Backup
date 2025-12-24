@@ -735,3 +735,148 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .drama-modal-close { position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 28px; cursor: pointer; }
+/* =====================================================
+   MOBILE HERO BOTTOM BAR (SAFE PATCH)
+   DOES NOT AFFECT PC
+===================================================== */
+
+@media (max-width: 768px) {
+
+  /* Keep same image, same slider */
+  .hero-slider {
+    height: auto;
+  }
+
+  .slide {
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Hide desktop hero text on mobile */
+  .slide-content,
+  .slider-nav {
+    display: none !important;
+  }
+
+  /* Bottom overlay bar */
+  .hero-mobile-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+
+    background: linear-gradient(
+      to top,
+      rgba(11,12,16,0.95),
+      rgba(11,12,16,0.6),
+      transparent
+    );
+  }
+
+}
+
+/* =====================================================
+   AUTO-HIDE CAROUSEL SCROLLBAR (VISUAL ONLY)
+===================================================== */
+
+.drama-grid.carousel-mode::-webkit-scrollbar {
+  height: 4px;
+  opacity: 0;
+}
+
+.drama-grid.carousel-mode:hover::-webkit-scrollbar {
+  opacity: 1;
+}
+
+.drama-grid.carousel-mode::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+/* =====================================================
+   BACKGROUND CONSISTENCY FIX
+===================================================== */
+
+.hero-slider,
+.platforms-section,
+.section-glass-box,
+.main-footer {
+  background-color: var(--background-color);
+}
+/* =====================================================
+   COOL OTT-STYLE MOBILE HERO UPGRADE
+===================================================== */
+
+@media (max-width: 768px) {
+
+  /* Give banner depth */
+  .slide {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+    transform: scale(0.98);
+    transition: transform 0.4s ease;
+  }
+
+  .slide:active {
+    transform: scale(1);
+  }
+
+  /* Cinematic gradient */
+  .slide::after {
+    background: linear-gradient(
+      to top,
+      rgba(5,6,10,0.98) 0%,
+      rgba(5,6,10,0.75) 35%,
+      rgba(5,6,10,0.25) 65%,
+      transparent 100%
+    );
+  }
+
+  /* Glassmorphism bottom bar */
+  .hero-mobile-bar {
+    backdrop-filter: blur(8px);
+    background: linear-gradient(
+      to top,
+      rgba(10,10,15,0.85),
+      rgba(10,10,15,0.45)
+    );
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Title polish */
+  .hero-mobile-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  }
+
+  /* Icon-only Play button */
+  .hero-play-btn {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      135deg,
+      var(--primary-color),
+      #b55cff
+    );
+    box-shadow: 0 6px 16px rgba(138,43,226,0.55);
+  }
+
+  .hero-play-btn:active {
+    transform: scale(0.9);
+  }
+}
